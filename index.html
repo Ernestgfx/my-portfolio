@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark"> <!-- Root element with theme attribute for CSS targeting -->
+<head>
+  <meta charset="UTF-8" /> <!-- Specifies Unicode character encoding for international characters -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Responsive viewport for mobile devices -->
+  <title>Odinaka Udoezika Ernest — Cybersecurity & Cloud Engineering</title> <!-- Browser tab title with professional branding -->
+  <link rel="stylesheet" href="style.css" /> <!-- Link to external CSS stylesheet -->
+  
+  <!-- GOOGLE FONTS: Three-font strategy for typographic hierarchy -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" /> <!-- Preconnect for faster Google Fonts loading -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> <!-- Preconnect to Google's static content CDN -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <!-- Font breakdown:
+       - Syne: modern display font for headings (weights 400-800)
+       - JetBrains Mono: monospace for code, tags, technical elements (weights 300-500)
+       - Lora: serif for body text, adds warmth and readability (including italic)
+  -->
+</head>
+<body>
+
+  <!-- ░░ NOISE OVERLAY ░░ -->
+  <!-- Subtle grain texture overlay for vintage/analog feel -->
+  <div class="noise-overlay" aria-hidden="true"></div> <!-- aria-hidden hides decorative element from screen readers -->
+
+  <!-- ░░ NAVBAR ░░ -->
+  <!-- Main navigation header with responsive design -->
+  <header class="navbar" id="navbar">
+    <nav class="nav-inner"> <!-- Inner container for navigation content -->
+      
+      <!-- Logo / Brand link -->
+      <a href="#hero" class="nav-logo">
+        <span class="logo-bracket">[</span>OUE<span class="logo-bracket">]</span> <!-- Bracket-styled monogram: Odinaka Udoezika Ernest -->
+      </a>
+      
+      <!-- Desktop navigation links -->
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>          <!-- Section 1: Biography -->
+        <li><a href="#skills">Skills</a></li>        <!-- Section 2: Technical abilities -->
+        <li><a href="#experience">Experience</a></li> <!-- Section 3: Work history -->
+        <li><a href="#projects">Projects</a></li>    <!-- Section 4: Portfolio -->
+        <li><a href="#certifications">Certs</a></li> <!-- Section 5: Credentials -->
+        <li><a href="#contact">Contact</a></li>      <!-- Section 6: Get in touch -->
+      </ul>
+      
+      <!-- Right-side navigation actions -->
+      <div class="nav-actions">
+        <!-- Dark/Light theme toggle button -->
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <span class="toggle-icon">◑</span> <!-- Dual-circle icon representing theme switch -->
+        </button>
+        
+        <!-- CV download button with download attribute for direct file saving -->
+        <a href="https://drive.google.com/file/d/1x6NrqEvWXop7ZpCcI4IZdjawdEg2VDxQ/view?usp=sharing" class="btn-cv" download>
+          <span>Download CV</span>
+          <!-- Download icon SVG: arrow pointing down into a box -->
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 004.561 21h14.878a2 2 0 001.94-1.515L22 17"/>
+          </svg>
+        </a>
+        
+        <!-- Hamburger menu button for mobile devices -->
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span> <!-- Three bars for hamburger icon -->
+        </button>
+      </div>
+    </nav>
+    
+    <!-- Mobile dropdown menu (initially hidden, shown via JavaScript when hamburger clicked) -->
+    <div class="mobile-menu" id="mobileMenu">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#certifications">Certs</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ░░ HERO ░░ -->
+  <!-- Main landing section with introduction and portrait -->
+  <section class="hero" id="hero">
+    <div class="hero-grid"> <!-- Two-column layout: text left, portrait right -->
+      
+      <!-- Left side: Text content -->
+      <div class="hero-content">
+        <!-- Availability indicator with blinking dot -->
+        <p class="hero-eyebrow">
+          <span class="dot-blink"></span> Available for opportunities <!-- Green dot + status text -->
+        </p>
+        
+        <!-- Name with line-by-line reveal styling -->
+        <h1 class="hero-name">
+          <span class="name-line">Odinaka</span>      <!-- First name line -->
+          <span class="name-line">Udoezika</span>     <!-- Middle/family name line -->
+          <span class="name-line accent">Ernest</span> <!-- Last name with accent color -->
+        </h1>
+        
+        <!-- Role/title badge -->
+        <div class="hero-role">
+          <span class="role-tag">Cybersecurity & Cloud Engineering</span>
+        </div>
+        
+        <!-- Tagline describing professional focus -->
+        <p class="hero-tagline">
+          Focused on building secure systems, analyzing threats,<br class="br-desktop" /> and improving real-world infrastructure.
+          <!-- br-desktop only shows on desktop, hidden on mobile -->
+        </p>
+        
+        <!-- Call-to-action buttons -->
+        <div class="hero-cta">
+          <a href="#projects" class="btn-primary">View Projects</a>   <!-- Primary action: see portfolio -->
+          <a href="#contact" class="btn-ghost">Get in Touch</a>       <!-- Secondary action: contact -->
+        </div>
+        
+        <!-- Social media links row -->
+        <div class="hero-socials">
+          <!-- LinkedIn profile link -->
+          <a href="https://www.linkedin.com/in/ernest-udoezika/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+          
+          <!-- GitHub profile link -->
+          <a href="https://github.com/Ernestgfx" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+            </svg>
+          </a>
+          
+          <!-- X/Twitter profile link -->
+          <a href="https://x.com/home" target="_blank" rel="noopener" aria-label="X / Twitter">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.261 5.632L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Right side: Portrait image with decorative frame -->
+      <div class="hero-portrait-wrap">
+        <div class="portrait-frame">
+          <!-- Professional headshot image -->
+          <img src="profile.jpg" alt="Odinaka Udoezika Ernest" class="portrait-img" />
+          <!-- Glow effect overlay behind portrait for depth -->
+          <div class="portrait-glow" aria-hidden="true"></div>
+        </div>
+        <!-- Decorative scan lines element for tech aesthetic -->
+        <div class="scan-deco" aria-hidden="true">
+          <span class="mono-label">SEC // ENG</span> <!-- Label: Security // Engineering -->
+        </div>
+      </div>
+    </div>
+    
+    <!-- Scroll indicator - visual cue to scroll down -->
+    <div class="scroll-hint" aria-hidden="true">
+      <span class="scroll-line"></span> <!-- Animated line that moves -->
+      <span class="mono-sm">scroll</span> <!-- Text label -->
+    </div>
+  </section>
+
+  <!-- ░░ ABOUT ░░ -->
+  <!-- Professional biography section -->
+  <section class="section about-section" id="about">
+    <div class="container"> <!-- Centered content container -->
+      <div class="section-label"><span class="mono-sm">01 /</span> About</div> <!-- Section number and title -->
+      <div class="about-grid"> <!-- Two-column layout: text + stats -->
+        
+        <!-- Left column: Bio text -->
+        <div class="about-text reveal">
+          <h2 class="section-heading">Who I Am</h2>
+          <p>I am an Information Technology student at <strong>Savonia University of Applied Sciences</strong> with hands-on experience in cybersecurity and cloud systems.</p>
+          <p>I have worked with SIEM platforms, monitored security events, and supported incident response processes in real environments. My work focuses on understanding how systems are secured, monitored, and continuously improved.</p>
+          <p>I also have experience in cybersecurity education and applied research, including work related to telecom and emerging technologies like <strong>5G</strong>.</p>
+        </div>
+        
+        <!-- Right column: Statistics cards -->
+        <div class="about-stats reveal">
+          <!-- Stat card 1: Years of experience -->
+          <div class="stat-card">
+            <span class="stat-num">4+</span>
+            <span class="stat-desc">Years in Security</span>
+          </div>
+          <!-- Stat card 2: Cloud certifications earned -->
+          <div class="stat-card">
+            <span class="stat-num">3</span>
+            <span class="stat-desc">Cloud Certs</span>
+          </div>
+          <!-- Stat card 3: Telecom research specialty -->
+          <div class="stat-card">
+            <span class="stat-num">5G</span>
+            <span class="stat-desc">Telecom Research</span>
+          </div>
+          <!-- Stat card 4: Infinite curiosity (personal touch) -->
+          <div class="stat-card">
+            <span class="stat-num">∞</span>
+            <span class="stat-desc">Curiosity</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ SKILLS ░░ -->
+  <!-- Technical competencies section -->
+  <section class="section skills-section" id="skills">
+    <div class="container">
+      <div class="section-label"><span class="mono-sm">02 /</span> Skills</div>
+      <h2 class="section-heading reveal">Technical Arsenal</h2>
+      
+      <div class="skills-grid"> <!-- Three-column grid for skill categories -->
+        
+        <!-- Category 1: Core cybersecurity areas -->
+        <div class="skill-group reveal">
+          <h3 class="skill-group-title"><span class="accent-tag">Core</span> Areas</h3>
+          <ul class="skill-list">
+            <li><span class="skill-bullet">▸</span> Cybersecurity Monitoring & Incident Response</li>
+            <li><span class="skill-bullet">▸</span> Cloud Security (Azure, AWS)</li>
+            <li><span class="skill-bullet">▸</span> SIEM & Threat Detection</li>
+          </ul>
+        </div>
+        
+        <!-- Category 2: Technical tools (displayed as tags) -->
+        <div class="skill-group reveal">
+          <h3 class="skill-group-title"><span class="accent-tag">Technical</span> Tools</h3>
+          <div class="tool-tags">
+            <span class="tool-tag">Splunk</span>              <!-- SIEM platform -->
+            <span class="tool-tag">Microsoft Sentinel</span>   <!-- Cloud-native SIEM -->
+            <span class="tool-tag">Kibana</span>               <!-- Visualization tool -->
+            <span class="tool-tag">T-Pot</span>                <!-- Honeypot platform -->
+            <span class="tool-tag">Windows Server</span>       <!-- Microsoft server OS -->
+            <span class="tool-tag">Linux</span>                <!-- Open-source OS -->
+          </div>
+        </div>
+        
+        <!-- Category 3: Soft/engineering skills -->
+        <div class="skill-group reveal">
+          <h3 class="skill-group-title"><span class="accent-tag">Engineering</span> Skills</h3>
+          <ul class="skill-list">
+            <li><span class="skill-bullet">▸</span> Technical Documentation</li>
+            <li><span class="skill-bullet">▸</span> System Analysis</li>
+            <li><span class="skill-bullet">▸</span> Problem Solving</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ EXPERIENCE ░░ -->
+  <!-- Work history timeline -->
+  <section class="section experience-section" id="experience">
+    <div class="container">
+      <div class="section-label"><span class="mono-sm">03 /</span> Experience</div>
+      <h2 class="section-heading reveal">Work History</h2>
+      
+      <div class="timeline"> <!-- Vertical timeline container -->
+        
+        <!-- Timeline item 1: Cybersecurity Engineer role -->
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div> <!-- Visual dot on timeline line -->
+          <div class="timeline-card"> <!-- Content card -->
+            <div class="timeline-header">
+              <h3>Cybersecurity Engineer</h3>
+              <span class="tl-badge">Security</span> <!-- Role category badge -->
+            </div>
+            <ul>
+              <li>Worked with SIEM, firewalls, and endpoint protection systems</li>
+              <li>Performed alert triage and incident investigation</li>
+              <li>Escalated critical threats and improved monitoring workflows</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Timeline item 2: Cybersecurity Instructor -->
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <h3>Cybersecurity Instructor</h3>
+              <span class="tl-badge">Education</span>
+            </div>
+            <ul>
+              <li>Delivered hands-on cybersecurity sessions</li>
+              <li>Helped learners understand practical security concepts</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Timeline item 3: Cybersecurity Researcher (Telecom focus) -->
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <h3>Cybersecurity Researcher</h3>
+              <span class="tl-badge">Research</span>
+            </div>
+            <ul>
+              <li>Researched telecom and 5G security challenges</li>
+              <li>Analyzed monitoring and threat detection strategies</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Timeline item 4: Entrepreneur in Residence (Startup) -->
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <h3>Entrepreneur in Residence</h3>
+              <span class="tl-badge">Startup</span>
+            </div>
+            <ul>
+              <li>Built an early-stage startup prototype</li>
+              <li>Worked on problem validation and product development</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ PROJECTS ░░ -->
+  <!-- Portfolio of technical projects -->
+  <section class="section projects-section" id="projects">
+    <div class="container">
+      <div class="section-label"><span class="mono-sm">04 /</span> Projects</div>
+      <h2 class="section-heading reveal">Selected Work</h2>
+      
+      <div class="projects-grid"> <!-- Responsive grid of project cards -->
+        
+        <!-- Project 1: Splunk SIEM Dashboard -->
+        <article class="project-card reveal">
+          <div class="project-card-inner">
+            <div class="project-number mono-sm">01</div> <!-- Sequential numbering -->
+            <h3 class="project-title">Splunk SIEM Dashboard</h3>
+            <p class="project-desc">Built dashboards for real-time security monitoring. Improved visibility into system events and streamlined analyst workflows.</p>
+            <div class="project-tags">
+              <span>Splunk</span>    <!-- Technology tag -->
+              <span>SIEM</span>      <!-- Domain tag -->
+              <span>Dashboarding</span> <!-- Skill tag -->
+            </div>
+          </div>
+          <div class="project-card-accent"></div> <!-- Decorative accent element -->
+        </article>
+
+        <!-- Project 2: Microsoft Sentinel Cloud SIEM -->
+        <article class="project-card reveal">
+          <div class="project-card-inner">
+            <div class="project-number mono-sm">02</div>
+            <h3 class="project-title">Cloud SIEM — Microsoft Sentinel</h3>
+            <p class="project-desc">Created detection rules and simulated attack scenarios. Improved alert accuracy and reduced noise in the monitoring pipeline.</p>
+            <div class="project-tags">
+              <span>Azure</span>
+              <span>Sentinel</span>
+              <span>Detection</span>
+            </div>
+          </div>
+          <div class="project-card-accent"></div>
+        </article>
+
+        <!-- Project 3: Azure Honeypot (T-Pot) -->
+        <article class="project-card reveal">
+          <div class="project-card-inner">
+            <div class="project-number mono-sm">03</div>
+            <h3 class="project-title">Azure Honeypot</h3>
+            <p class="project-desc">Deployed T-Pot honeypot on Azure to capture real attack data. Analyzed attacker behavior and TTPs using Kibana visualizations.</p>
+            <div class="project-tags">
+              <span>T-Pot</span>      <!-- Honeypot framework -->
+              <span>Kibana</span>     <!-- Visualization -->
+              <span>Azure</span>      <!-- Cloud platform -->
+              <span>Threat Intel</span> <!-- Intelligence focus -->
+            </div>
+          </div>
+          <div class="project-card-accent"></div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ CERTIFICATIONS ░░ -->
+  <!-- Professional credentials and certifications -->
+  <section class="section certs-section" id="certifications">
+    <div class="container">
+      <div class="section-label"><span class="mono-sm">05 /</span> Certifications</div>
+      <h2 class="section-heading reveal">Credentials</h2>
+      
+      <div class="certs-grid"> <!-- Grid of certification cards -->
+        
+        <!-- Cert 1: CompTIA Security+ (Entry-level security cert) -->
+        <div class="cert-card reveal">
+          <div class="cert-icon">🛡️</div> <!-- Shield emoji for security -->
+          <div class="cert-info">
+            <span class="cert-name">CompTIA Security+</span>
+            <span class="cert-org">CompTIA</span>
+          </div>
+          <div class="cert-verified mono-sm">Verified</div> <!-- Verification status -->
+        </div>
+        
+        <!-- Cert 2: Microsoft Azure Security Engineer (AZ-500) -->
+        <div class="cert-card reveal">
+          <div class="cert-icon">☁️</div> <!-- Cloud emoji -->
+          <div class="cert-info">
+            <span class="cert-name">Azure Security Engineer</span>
+            <span class="cert-org">Microsoft — AZ-500</span>
+          </div>
+          <div class="cert-verified mono-sm">Verified</div>
+        </div>
+        
+        <!-- Cert 3: AWS Solutions Architect Associate -->
+        <div class="cert-card reveal">
+          <div class="cert-icon">⚙️</div> <!-- Gear emoji for infrastructure -->
+          <div class="cert-info">
+            <span class="cert-name">AWS Solutions Architect</span>
+            <span class="cert-org">Amazon Web Services — Associate</span>
+          </div>
+          <div class="cert-verified mono-sm">Verified</div>
+        </div>
+        
+        <!-- Cert 4: Google Cloud Associate Cloud Engineer -->
+        <div class="cert-card reveal">
+          <div class="cert-icon">🔵</div> <!-- Blue circle for Google -->
+          <div class="cert-info">
+            <span class="cert-name">Associate Cloud Engineer</span>
+            <span class="cert-org">Google Cloud</span>
+          </div>
+          <div class="cert-verified mono-sm">Verified</div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ CURRENTLY WORKING ON ░░ -->
+  <!-- Current learning and development focus areas -->
+  <section class="section working-section" id="working">
+    <div class="container">
+      <div class="section-label"><span class="mono-sm">06 /</span> Focus</div>
+      <h2 class="section-heading reveal">What I'm Working On</h2>
+      
+      <div class="working-grid"> <!-- Three-column grid for focus areas -->
+        
+        <!-- Focus 1: Cloud security advancement -->
+        <div class="working-card reveal">
+          <div class="working-icon">→</div> <!-- Arrow indicator -->
+          <p>Advancing cloud security skills across <strong>Azure</strong> and <strong>AWS</strong> platforms</p>
+        </div>
+        
+        <!-- Focus 2: Detection engineering -->
+        <div class="working-card reveal">
+          <div class="working-icon">→</div>
+          <p>Exploring <strong>detection engineering</strong> — building smarter, lower-noise alerting logic</p>
+        </div>
+        
+        <!-- Focus 3: Hands-on security labs -->
+        <div class="working-card reveal">
+          <div class="working-icon">→</div>
+          <p>Building <strong>hands-on security labs</strong> to practice offensive and defensive techniques</p>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ CONTACT ░░ -->
+  <!-- Contact and networking section -->
+  <section class="section contact-section" id="contact">
+    <div class="container">
+      <div class="section-label"><span class="mono-sm">07 /</span> Contact</div>
+      
+      <div class="contact-inner reveal">
+        <h2 class="section-heading">Let's Connect</h2>
+        <p class="contact-lead">Open to cybersecurity roles, cloud engineering opportunities, and research collaborations.</p>
+        
+        <div class="contact-links">
+          <!-- LinkedIn contact link -->
+          <a href="https://www.linkedin.com/in/ernest-udoezika/" target="_blank" rel="noopener" class="contact-link">
+            <span class="contact-link-label mono-sm">LinkedIn</span>
+            <span class="contact-link-value">ernest-udoezika</span>
+            <span class="contact-arrow">↗</span> <!-- External link indicator -->
+          </a>
+          
+          <!-- GitHub contact link -->
+          <a href="https://github.com/Ernestgfx" target="_blank" rel="noopener" class="contact-link">
+            <span class="contact-link-label mono-sm">GitHub</span>
+            <span class="contact-link-value">Ernestgfx</span>
+            <span class="contact-arrow">↗</span>
+          </a>
+          
+          <!-- X/Twitter contact link -->
+          <a href="https://x.com/home" target="_blank" rel="noopener" class="contact-link">
+            <span class="contact-link-label mono-sm">X / Twitter</span>
+            <span class="contact-link-value">@Ernest</span>
+            <span class="contact-arrow">↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ FOOTER ░░ -->
+  <!-- Copyright and attribution -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="mono-sm footer-copy">© 2025 Odinaka Udoezika Ernest</span> <!-- Copyright notice -->
+      <span class="mono-sm footer-build">Built with precision. No frameworks.</span> <!-- Technical pride statement -->
+    </div>
+  </footer>
+
+  <!-- External JavaScript for interactivity (theme toggle, mobile menu, scroll animations, etc.) -->
+  <script src="script.js"></script>
+</body>
+</html>

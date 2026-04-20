@@ -1,0 +1,1007 @@
+/* ============================================================
+   PORTFOLIO — Odinaka Udoezika Ernest
+   Design language: Editorial Security / Dark Ops
+   Fonts: Syne (display) · JetBrains Mono (code) · Lora (body)
+   ============================================================ */
+
+/* ── 1. CSS VARIABLES ──────────────────────────────────────── */
+:root {
+  /* Dark theme (default) - Cyber/editorial aesthetic with deep blues */
+  --bg:         #0d0f14;      /* Deepest background - almost black with blue tint */
+  --bg-2:       #131620;      /* Secondary background for alternating sections */
+  --bg-3:       #1a1e2e;      /* Tertiary background for hover states */
+  --surface:    #1e2336;      /* Card/surface color for elevated elements */
+  --surface-2:  #252b40;      /* Lighter surface for hover interactions */
+  --border:     rgba(99, 120, 180, 0.18); /* Subtle blue-tinted borders */
+  --text:       #e2e6f3;      /* Primary text - off-white for readability */
+  --text-muted: #7a859e;      /* Secondary/dimmed text */
+  --text-dim:   #4a5568;      /* Even more muted text for least emphasis */
+  --accent:     #00d4ff;      /* Electric cyan brand color */
+  --accent-2:   #0099cc;      /* Darker accent for gradients */
+  --accent-glow:rgba(0, 212, 255, 0.18); /* Subtle glow for hover effects */
+  --accent-glow-strong: rgba(0, 212, 255, 0.35); /* Stronger glow for shadows */
+  --green:      #22d3a5;      /* Success/availability indicator color */
+  --red:        #ff4d6d;      /* Error/warning color (unused but available) */
+
+  /* Typography - Three-font system for hierarchy */
+  --font-display: 'Syne', sans-serif;      /* Bold, geometric for headings */
+  --font-mono:    'JetBrains Mono', monospace; /* Code/technical elements */
+  --font-body:    'Lora', serif;           /* Warm, readable serif for body text */
+
+  /* Spacing & sizing constants */
+  --nav-h: 68px;                /* Fixed navbar height for layout calculations */
+  --section-gap: 110px;        /* Vertical spacing between major sections */
+  --radius: 12px;              /* Large border radius for cards */
+  --radius-sm: 6px;            /* Small border radius for buttons/tags */
+}
+
+/* Light theme - Lighter palette for daytime readability */
+[data-theme="light"] {
+  --bg:         #f5f6fa;       /* Soft off-white background */
+  --bg-2:       #edf0f7;       /* Slightly darker for section alternation */
+  --bg-3:       #e4e8f2;       /* Hover state background */
+  --surface:    #ffffff;       /* Pure white for cards */
+  --surface-2:  #f0f3fa;       /* Light surface hover */
+  --border:     rgba(80, 100, 160, 0.15); /* Soft blue-tinted borders */
+  --text:       #1a1e2e;       /* Dark blue-black text for contrast */
+  --text-muted: #5a6480;       /* Muted dark text */
+  --text-dim:   #9aa3be;       /* Very muted for lowest emphasis */
+  --accent:     #0077aa;       /* Darker cyan for light mode contrast */
+  --accent-2:   #005f88;       /* Darker accent for gradients */
+  --accent-glow:rgba(0, 119, 170, 0.12); /* Subtle accent glow */
+  --accent-glow-strong: rgba(0, 119, 170, 0.25); /* Stronger glow */
+}
+
+/* ── 2. RESET & BASE ────────────────────────────────────────── */
+/* Universal reset ensures consistent box model across all browsers */
+*, *::before, *::after { 
+  box-sizing: border-box;  /* Includes padding/border in width calculations */
+  margin: 0;               /* Removes default margins */
+  padding: 0;              /* Removes default padding */
+}
+
+html {
+  scroll-behavior: smooth;  /* Enables smooth scrolling for anchor links */
+  font-size: 16px;          /* Base font size (1rem = 16px) */
+}
+
+body {
+  background-color: var(--bg);    /* Theme-aware background */
+  color: var(--text);             /* Theme-aware text color */
+  font-family: var(--font-body);  /* Serif for body readability */
+  line-height: 1.75;              /* Generous line height for readability */
+  overflow-x: hidden;             /* Prevents horizontal scroll issues */
+  transition: background-color 0.35s ease, color 0.35s ease; /* Smooth theme transitions */
+}
+
+/* ── 3. NOISE OVERLAY ───────────────────────────────────────── */
+/* Grain texture overlay for vintage/analog film aesthetic */
+.noise-overlay {
+  position: fixed;          /* Fixed to viewport, scrolls with page */
+  inset: 0;                 /* Shorthand for top/right/bottom/left: 0 */
+  pointer-events: none;     /* Allows clicks to pass through to content */
+  z-index: 9999;            /* Highest z-index, sits above everything */
+  opacity: 0.028;           /* Very subtle - almost invisible grain */
+  /* SVG with fractal noise filter creates authentic film grain effect */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 200px 200px; /* Tile size for noise pattern */
+}
+
+/* ── 4. TYPOGRAPHY UTILITIES ────────────────────────────────── */
+/* Small monospace text utility for labels and metadata */
+.mono-sm {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;       /* ~11.5px */
+  letter-spacing: 0.1em;    /* Wide tracking for uppercase style */
+  text-transform: uppercase;
+}
+
+/* Monospace label with accent color for highlighted technical text */
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;       /* ~11px */
+  letter-spacing: 0.15em;   /* Extra wide tracking */
+  color: var(--accent);     /* Brand cyan color */
+  text-transform: uppercase;
+}
+
+/* ── 5. LAYOUT UTILITIES ────────────────────────────────────── */
+/* Centered container with max width for content */
+.container {
+  width: min(1180px, 92vw); /* Responsive: 1180px max, 92% of viewport on smaller screens */
+  margin-inline: auto;      /* Horizontal centering (modern shorthand) */
+}
+
+/* Section spacing - consistent vertical rhythm */
+.section {
+  padding-block: var(--section-gap); /* Top and bottom padding using CSS variable */
+}
+
+/* ── 6. SECTION LABELS & HEADINGS ───────────────────────────── */
+/* Section identifier with number and accent underline */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+/* Decorative line after section label */
+.section-label::after {
+  content: '';
+  display: block;
+  height: 1px;
+  width: 50px;
+  background: var(--accent);
+  opacity: 0.4;             /* Subtle visibility */
+}
+
+/* Main section heading - responsive with clamp() */
+.section-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem); /* Min 32px, scales to 4% of viewport, max 48px */
+  font-weight: 800;                  /* Extra bold */
+  letter-spacing: -0.03em;           /* Tight tracking for modern look */
+  color: var(--text);
+  margin-bottom: 2.5rem;
+  line-height: 1.1;
+}
+
+/* ── 7. NAVBAR ──────────────────────────────────────────────── */
+/* Fixed navigation bar that becomes glassmorphic on scroll */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;            /* Above all content */
+  height: var(--nav-h);
+  background: transparent;   /* Initially transparent */
+  transition: background 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+/* Scrolled state - adds glass blur effect */
+.navbar.scrolled {
+  background: rgba(13, 15, 20, 0.85);
+  backdrop-filter: blur(16px);       /* Frosted glass effect */
+  -webkit-backdrop-filter: blur(16px); /* Safari support */
+  box-shadow: 0 1px 0 var(--border); /* Subtle bottom border */
+}
+
+/* Light mode scrolled state */
+[data-theme="light"] .navbar.scrolled {
+  background: rgba(245, 246, 250, 0.88);
+}
+
+/* Navigation inner container */
+.nav-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  width: min(1180px, 92vw);
+  margin-inline: auto;
+}
+
+/* Logo/brand styling */
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+/* Bracket characters around logo for tech aesthetic */
+.logo-bracket {
+  color: var(--accent);
+  font-weight: 400;
+}
+
+/* Desktop navigation links container */
+.nav-links {
+  display: flex;
+  gap: 0.25rem;
+  list-style: none;
+}
+
+/* Individual nav link styling */
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 0.45rem 0.75rem;
+  border-radius: var(--radius-sm);
+  transition: color 0.2s, background 0.2s;
+}
+/* Hover effect with accent glow background */
+.nav-links a:hover {
+  color: var(--accent);
+  background: var(--accent-glow);
+}
+
+/* Right-side action buttons container */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Dark/light mode toggle button - circular design */
+.theme-toggle {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.theme-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-glow);
+}
+
+/* CV download button */
+.btn-cv {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  transition: opacity 0.2s, transform 0.2s;
+}
+.btn-cv:hover { 
+  opacity: 0.85;           /* Slight fade on hover */
+  transform: translateY(-1px); /* Lift effect */
+}
+
+/* Hamburger menu button - three horizontal lines */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+/* Open state - transforms into X icon */
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile dropdown menu */
+.mobile-menu {
+  display: none;
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--border);
+  padding: 1.25rem min(92vw, 1180px);
+  padding-inline: calc((100% - min(1180px, 92vw)) / 2); /* Dynamic padding to match container */
+}
+.mobile-menu.open { display: block; }
+.mobile-menu ul { 
+  list-style: none; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 0.5rem; 
+}
+.mobile-menu a {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  display: block;
+  padding: 0.5rem 0;
+}
+.mobile-menu a:hover { color: var(--accent); }
+
+/* ── 8. HERO ────────────────────────────────────────────────── */
+/* Main landing section - full viewport height */
+.hero {
+  min-height: 100svh;       /* Small viewport height for better mobile behavior */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: calc(var(--nav-h) + 2rem);
+  padding-bottom: 4rem;
+  position: relative;
+  overflow: hidden;         /* Prevents glow overflow */
+}
+
+/* Background radial glow effect */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  right: -5%;
+  width: 55vw;
+  height: 55vw;
+  max-width: 700px;
+  max-height: 700px;
+  background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 65%);
+  pointer-events: none;     /* Allows clicking through glow */
+}
+
+/* Two-column grid for hero content */
+.hero-grid {
+  width: min(1180px, 92vw);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr auto; /* Text takes available space, portrait auto-sized */
+  align-items: center;
+  gap: 5rem;
+}
+
+/* Availability status line with blinking dot */
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green);       /* Green indicates availability */
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Animated blinking dot */
+.dot-blink {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  display: inline-block;
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+/* Name heading - stacked lines for dramatic effect */
+.hero-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.0;         /* Tight line height for stacked effect */
+  letter-spacing: -0.04em;
+  font-size: clamp(3rem, 7vw, 5.5rem); /* Responsive scaling */
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.2rem;
+}
+.name-line { display: block; }
+.name-line.accent { color: var(--accent); } /* Highlight last name */
+
+/* Role/title badge */
+.hero-role { margin-bottom: 1.4rem; }
+.role-tag {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.9rem;
+  border-radius: 100px;     /* Pill shape */
+}
+
+/* Descriptive tagline */
+.hero-tagline {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  max-width: 520px;
+  margin-bottom: 2.2rem;
+  line-height: 1.7;
+}
+.br-desktop { display: inline; } /* Line break only visible on desktop */
+
+/* Call-to-action buttons container */
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+/* Primary button - filled with accent color */
+.btn-primary {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--bg);          /* Contrast with accent background */
+  background: var(--accent);
+  padding: 0.75rem 1.75rem;
+  border-radius: var(--radius-sm);
+  transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 0 0 var(--accent-glow-strong);
+}
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 24px var(--accent-glow-strong); /* Glow shadow on hover */
+}
+
+/* Ghost button - transparent with border */
+.btn-ghost {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text);
+  background: transparent;
+  padding: 0.75rem 1.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.btn-ghost:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-glow);
+}
+
+/* Social media icons row */
+.hero-socials {
+  display: flex;
+  gap: 1rem;
+}
+.hero-socials a {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.hero-socials a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-glow);
+}
+
+/* Portrait image container */
+.hero-portrait-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  animation: fadeInRight 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0.2s;    /* Slight delay after text */
+}
+
+/* Circular frame for portrait */
+.portrait-frame {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--border);
+  /* Nested borders create depth effect */
+  box-shadow:
+    0 0 0 6px var(--bg),      /* Background color ring */
+    0 0 0 7px var(--border),  /* Border ring */
+    0 20px 60px rgba(0,0,0,0.45),
+    0 0 40px var(--accent-glow);
+}
+
+/* Actual photograph */
+.portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;        /* Ensures image fills circle without distortion */
+  object-position: center top;
+  display: block;
+  transition: transform 0.4s ease;
+}
+/* Zoom effect on hover */
+.portrait-frame:hover .portrait-img {
+  transform: scale(1.04);
+}
+
+/* Gradient overlay for atmospheric effect */
+.portrait-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, transparent 60%, var(--accent-glow) 100%);
+  pointer-events: none;
+}
+
+/* Decorative scan lines below portrait */
+.scan-deco {
+  text-align: center;
+  opacity: 0.6;
+}
+
+/* Scroll hint indicator - animates to suggest scrolling */
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-dim);
+  animation: scrollFade 3s ease-in-out infinite;
+}
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, var(--text-dim));
+  display: block;
+}
+@keyframes scrollFade {
+  0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 0.8; transform: translateX(-50%) translateY(6px); }
+}
+
+/* Entrance animations for hero elements */
+.hero-content { animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ── 9. ABOUT ───────────────────────────────────────────────── */
+/* About section with alternating background */
+.about-section { background: var(--bg-2); }
+
+/* Two-column grid for bio and stats */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+/* Bio text styling */
+.about-text p {
+  color: var(--text-muted);
+  margin-bottom: 1.1rem;
+  font-size: 1rem;
+}
+.about-text strong { color: var(--text); font-style: normal; }
+
+/* Statistics cards grid */
+.about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Individual stat card */
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.stat-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+
+/* Statistic number - large and bold */
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+}
+.stat-desc {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ── 10. SKILLS ─────────────────────────────────────────────── */
+.skills-section { background: var(--bg); }
+
+/* Three-column grid for skill categories */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+/* Individual skill category card */
+.skill-group {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem 1.75rem;
+  transition: border-color 0.25s, transform 0.25s;
+}
+.skill-group:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px); /* Lift effect */
+}
+
+/* Category title with accent tag */
+.skill-group-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.accent-tag {
+  color: var(--accent);
+}
+
+/* Skill list items */
+.skill-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.skill-list li {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  line-height: 1.5;
+}
+
+/* Bullet character */
+.skill-bullet {
+  color: var(--accent);
+  font-size: 0.65rem;
+  margin-top: 0.35rem;
+  flex-shrink: 0;
+}
+
+/* Tags container for tools */
+.tool-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+/* Individual tool tag - pill-shaped with border */
+.tool-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  background: var(--accent-glow);
+  border: 1px solid var(--accent);
+  padding: 0.3rem 0.75rem;
+  border-radius: 100px;
+  transition: background 0.2s;
+}
+.tool-tag:hover {
+  background: var(--accent-glow-strong);
+}
+
+/* ── 11. EXPERIENCE ─────────────────────────────────────────── */
+.experience-section { background: var(--bg-2); }
+
+/* Timeline container with left padding for vertical line */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  padding-left: 2rem;
+}
+
+/* Vertical timeline line */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+}
+
+/* Individual timeline item */
+.timeline-item {
+  position: relative;
+  padding: 0 0 2.5rem 2.5rem;
+}
+.timeline-item:last-child { padding-bottom: 0; }
+
+/* Dot on the timeline line */
+.timeline-dot {
+  position: absolute;
+  left: -0.45rem;          /* Centers dot on the line */
+  top: 0.6rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent-glow-strong);
+}
+
+/* Content card for each timeline entry */
+.timeline-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  transition: border-color 0.25s;
+}
+.timeline-card:hover {
+  border-color: var(--accent);
+}
+
+/* Header with title and category badge */
+.timeline-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.timeline-header h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+/* Category badge */
+.tl-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-glow);
+  border: 1px solid var(--accent);
+  padding: 0.2rem 0.65rem;
+  border-radius: 100px;
+}
+
+/* Responsibility list */
+.timeline-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.timeline-card li {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  padding-left: 1.1rem;
+  position: relative;
+}
+/* Custom bullet using right-pointing triangle */
+.timeline-card li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 0.65rem;
+  top: 0.35em;
+}
+
+/* ── 12. PROJECTS ───────────────────────────────────────────── */
+.projects-section { background: var(--bg); }
+
+/* Three-column grid for project cards */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* Individual project card */
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.project-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3), 0 0 20px var(--accent-glow);
+}
+
+/* Inner content padding */
+.project-card-inner {
+  padding: 2rem 1.75rem;
+}
+
+/* Accent bar at bottom of card that appears on hover */
+.project-card-accent {
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.project-card:hover .project-card-accent {
+  opacity: 1;
+}
+
+/* Project number - subtle identifier */
+.project-number {
+  color: var(--accent);
+  opacity: 0.6;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+/* Project title */
+.project-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.85rem;
+  line-height: 1.3;
+}
+
+/* Project description text */
+.project-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+  line-height: 1.65;
+}
+
+/* Technology tags */
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.project-tags span {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  padding: 0.22rem 0.6rem;
+  border-radius: var(--radius-sm);
+}
+
+/* ── 13. CERTIFICATIONS ─────────────────────────────────────── */
+.certs-section { background: var(--bg-2); }
+
+/* Two-column grid for certification cards */
+.certs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+/* Individual certification card */
+.cert-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  transition: border-color 0.25s, transform 0.25s;
+}
+.cert-card:hover {
+  border-color: var(--accent);
+  transform: translateX(4px); /* Slide right on hover */
+}
+
+/* Emoji/icon for visual recognition */
+.cert-icon {
+  font-size: 1.75rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* Certification text info container */
+.cert-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.cert-name {
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 700;
+}
+.cert-org {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* Verification status indicator */
+.cert-verified {
+  color: var(--green);
+  flex-shrink: 0;
+}
+
+/* ── 14. WORKING ON ─────────────────────────────────────────── */
+.working-section { background: var(--bg); }
+
+/* Three-column grid for current focus areas */
+.working-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* Individual focus card */
+.working-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: border-color 0.25s, transform 0}
